@@ -1,0 +1,52 @@
+@startuml
+' 1. 페이지별로 컴포넌트를 정의한다.
+object CreateGroup{
+    state groupName: string
+    state formValidated: boolean
+}
+object AddMembers{
+    state members: string[]
+    state formValidated: boolean
+}
+object ExpenseMain{
+    groupName: string
+    members: string[]
+}
+
+object CenteredOverlay
+object CenteredOverlayForm {
+    props title: string
+    props inputType: string
+    props handleFormSubmitted : function
+
+    state currentValue: string
+}
+
+object AddExpenseForm{
+    members: string[]
+
+    state payer: string
+    state description: string
+    state amount: number
+    state paidAt: date
+    state formValidated: boolean
+}
+object ExpenseSummary{
+    expense: expense[]
+    members: string[]
+}
+object ExpenseList{
+    expense: expense[]
+}
+
+CreateGroup *-- CenteredOverlayForm
+AddMembers *-- CenteredOverlayForm
+CenteredOverlayForm *-- CenteredOverlay
+
+ExpenseMain *-- AddExpenseForm
+ExpenseMain *-- ExpenseSummary
+ExpenseMain *-- ExpenseList
+
+ExpenseList *-- CenteredOverlay
+
+@enduml
